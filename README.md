@@ -45,6 +45,41 @@ Milo reduces this by **~58.6%** using two optimizations together:
 
 ---
 
+## Quickstart
+
+### 1. Build the CLI
+```bash
+cargo build --release
+```
+
+### 2. Verify a snarkjs proof locally (Arkworks BN254)
+```bash
+./target/release/milo verify \
+  --vk examples/circuits/multiplier2_vk.json \
+  --proof examples/circuits/multiplier2_proof.json \
+  --public examples/circuits/multiplier2_public.json
+```
+
+### 3. Generate a deployable Move verifier & call arguments
+```bash
+./target/release/milo generate \
+  --vk examples/circuits/multiplier2_vk.json \
+  --proof examples/circuits/multiplier2_proof.json \
+  --public examples/circuits/multiplier2_public.json \
+  --module-name multiplier2_verifier \
+  --out-dir move/sources/
+```
+
+### 4. Run Move unit & benchmark tests
+```bash
+cd move
+aptos move test
+```
+
+See [docs/benchmarks.md](docs/benchmarks.md) for full gas and scaling details.
+
+---
+
 ## Roadmap
 
 - [x] **Circom / snarkjs Groth16 (BN254)** — CLI generator (`verify` & `generate`), precomputed prepared verification, negative test suite.
