@@ -1,0 +1,9 @@
+/target/
+**/build/
+*.zkey
+*.ptau
+*.wtns
+*.wasm
+*.r1cs
+*.sym
+.DS_Store
