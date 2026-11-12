@@ -1,0 +1,13 @@
+[package]
+name = "milo_groth16"
+version = "0.1.0"
+
+[addresses]
+std = "0x1"
+aptos_std = "0x1"
+deployer = "0xcafe"
+
+[dependencies.AptosFramework]
+git = "https://github.com/aptos-labs/aptos-framework.git"
+rev = "mainnet"
+subdir = "aptos-framework"
