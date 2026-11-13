@@ -1,5 +1,9 @@
 # Milo
 
+[![CI](https://github.com/Kim8584/milo/actions/workflows/ci.yml/badge.svg)](https://github.com/Kim8584/milo/actions/workflows/ci.yml)
+[![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
+[![Aptos](https://img.shields.io/badge/Aptos-Move%202.4-blueviolet.svg)](https://aptos.dev)
+
 **Milo** is a Proof-to-Move compiler that turns Circom / snarkjs (Groth16 on BN254) verification keys, proofs, and public inputs into **ready-to-deploy, gas-optimized Move verifiers on Aptos**.
 
 *(Noir support is on the roadmap — currently Groth16 / Circom is implemented and tested.)*
