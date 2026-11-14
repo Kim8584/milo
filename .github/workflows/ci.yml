@@ -30,6 +30,9 @@ jobs:
       - name: Build CLI (Release)
         run: cargo build --release
 
+      - name: Run Integration Tests
+        run: cargo test
+
       - name: Verify Circuit Fixtures
         run: |
           ./target/release/milo verify \
