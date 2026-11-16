@@ -43,3 +43,6 @@ jobs:
             --vk examples/circuits/poly4_vk.json \
             --proof examples/circuits/poly4_proof.json \
             --public examples/circuits/poly4_public.json
+
+      - name: Run End-to-End Pipeline Script
+        run: ./scripts/e2e_test.sh

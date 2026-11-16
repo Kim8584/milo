@@ -80,6 +80,11 @@ cd move
 aptos move test
 ```
 
+### 5. Run automated end-to-end pipeline check
+```bash
+./scripts/e2e_test.sh
+```
+
 See [docs/benchmarks.md](docs/benchmarks.md) for full gas and scaling details.
 
 ---
