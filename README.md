@@ -74,13 +74,21 @@ cargo build --release
   --out-dir move/sources/
 ```
 
-### 4. Run Move unit & benchmark tests
+### 4. Inspect circuit parameters and estimated gas
+```bash
+./target/release/milo info \
+  --vk examples/circuits/multiplier2_vk.json \
+  --proof examples/circuits/multiplier2_proof.json \
+  --public examples/circuits/multiplier2_public.json
+```
+
+### 5. Run Move unit & benchmark tests
 ```bash
 cd move
 aptos move test
 ```
 
-### 5. Run automated end-to-end pipeline check
+### 6. Run automated end-to-end pipeline check
 ```bash
 ./scripts/e2e_test.sh
 ```

@@ -86,3 +86,24 @@ fn test_cli_generate_code() {
 
     let _ = std::fs::remove_dir_all(&temp_dir);
 }
+
+#[test]
+fn test_cli_info() {
+    let output = Command::new(env!("CARGO_BIN_EXE_milo"))
+        .args([
+            "info",
+            "--vk",
+            "examples/circuits/multiplier2_vk.json",
+            "--proof",
+            "examples/circuits/multiplier2_proof.json",
+            "--public",
+            "examples/circuits/multiplier2_public.json",
+        ])
+        .output()
+        .expect("Failed to run info on multiplier2");
+
+    assert!(output.status.success());
+    let stdout = String::from_utf8_lossy(&output.stdout);
+    assert!(stdout.contains("Milo ZK Artifact Info"));
+    assert!(stdout.contains("Estimated prepared pairing gas"));
+}

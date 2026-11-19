@@ -38,11 +38,20 @@ enum Commands {
     },
     /// Verify proof locally in Rust using Arkworks BN254 to ensure math correctness
     Verify {
-        #[arg(long)]
+        #[arg(long, help = "Path to snarkjs verification_key.json")]
         vk: String,
-        #[arg(long)]
+        #[arg(long, help = "Path to snarkjs proof.json")]
         proof: String,
-        #[arg(long)]
+        #[arg(long, help = "Path to snarkjs public.json")]
+        public: String,
+    },
+    /// Print summary information and sizes for a verification key and proof
+    Info {
+        #[arg(long, help = "Path to snarkjs verification_key.json")]
+        vk: String,
+        #[arg(long, help = "Path to snarkjs proof.json")]
+        proof: String,
+        #[arg(long, help = "Path to snarkjs public.json")]
         public: String,
     },
 }
@@ -194,6 +203,31 @@ fn main() -> Result<()> {
                 eprintln!("Arkworks Groth16 verification FAILED!");
                 std::process::exit(1);
             }
+        }
+
+        Commands::Info { vk, proof, public } => {
+            let vk_str = read_file(&vk)?;
+            let vk_json: SnarkJsGroth16VerificationKey = serde_json::from_str(&vk_str)?;
+
+            let proof_str = read_file(&proof)?;
+            let _proof_json: SnarkJsGroth16Proof = serde_json::from_str(&proof_str)?;
+
+            let public_str = read_file(&public)?;
+            let public_json: SnarkJsGroth16PublicInput = serde_json::from_str(&public_str)?;
+
+            let num_pub = public_json.len();
+            let num_ic = vk_json.ic.len();
+
+            println!("=== Milo ZK Artifact Info ===");
+            println!("Verification Key:");
+            println!("  Curve: {}", vk_json.curve);
+            println!("  Protocol: {}", vk_json.protocol);
+            println!("  Public Inputs expected: {}", num_pub);
+            println!("  IC elements: {}", num_ic);
+            println!("Move Verifier Characteristics on Aptos:");
+            println!("  Estimated prepared pairing gas: ~607.77 gas units");
+            println!("  Estimated MSM gas: ~{:.2} gas units", 20.44 + (num_pub as f64 + 1.0) * 15.33);
+            println!("  Estimated total verification cost: ~{:.2} gas units", 643.54 + (num_pub as f64) * 15.33);
         }
 
         Commands::Generate {
